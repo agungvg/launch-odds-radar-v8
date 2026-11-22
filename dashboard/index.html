@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Launch-Odds Radar v8 — which pre-token protocol is worth farming next</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header>
+<h1>Launch-Odds Radar v8</h1>
+<p class="sub">198 pre-token protocols ranked by fitted implied value. Every figure is fitted at runtime from the sealed snapshot — no names hardcoded, no value invented. Snapshot <span id="asof"></span> · model <span id="mver"></span> · make.fun/bounty/token-radar-01</p>
+<div id="kpis" class="kpis"></div>
+<div id="integrity" class="integrity"></div>
+</header>
+<main>
+<section id="controls" class="card">
+<h2>What-if sliders — the model's own scale</h2>
+<p class="note">Defaults are the model defaults. Move a slider and every verdict, net $ and $/hour on this page recomputes from the same formula the board was built with. The deposit slider is in percent of TVL: the model default is 0.020% (deposit $1,000–$10,000).</p>
+<div class="sliders">
+<label>Deposit <span id="depLab"></span><input id="depSl" type="range"></label>
+<label>Drop share <span id="dropLab"></span><input id="dropSl" type="range"></label>
+<label>Horizon <span id="horLab"></span><input id="horSl" type="range"></label>
+</div>
+<div class="filters">
+<input id="q" type="search" placeholder="Filter by name, slug or category…" aria-label="Filter board">
+<select id="verdictSel" aria-label="Verdict filter"><option value="">All verdicts</option><option>Farm</option><option>Thin</option><option>Skip</option></select>
+<label class="chk"><input id="wlOnly" type="checkbox"> Watchlist only (40)</label>
+<label class="chk"><input id="topOnly" type="checkbox"> Top 25 by implied value</label>
+<button id="csvBtn" type="button">Export CSV</button>
+<button id="jsonBtn" type="button">Export JSON</button>
+</div>
+<p id="boardCount" class="note"></p>
+</section>
+<section class="card">
+<h2>Board — ranked by implied value</h2>
+<div class="tblwrap"><table id="board"><thead><tr>
+<th data-k="rank">#</th><th data-k="name">Protocol</th><th data-k="category">Category</th><th data-k="tvl_usd">TVL</th><th data-k="implied_value_usd">Implied value</th><th data-k="p25_usd">P25–P75 range</th><th data-k="multiple">Multiple</th><th data-k="odds">Odds</th><th data-k="net_usd">Net $</th><th data-k="per_hour_usd">$/hour</th><th data-k="verdict">Verdict</th>
+</tr></thead><tbody></tbody></table></div>
+<p class="note">Click a row for its detail: farm plan, economics, sensitivity grid and nearest priced peers. Click a column header to sort. Rank range in brackets is the 10th–90th percentile rank over 200 bootstrap refits.</p>
+</section>
+<section id="detail" class="card" hidden>
+<h2 id="dTitle">Detail</h2>
+<div id="dBody"></div>
+</section>
+<section class="card">
+<h2>Size curve — priced peers and the fitted curve</h2>
+<p class="note">Each dot is one of the 128 priced protocols (market cap / TVL against TVL). The line is the fitted size curve: the median multiple falls from 0.42 at $5–50M TVL to 0.03 above $1B. Big protocols are worth less per TVL dollar — that is the single strongest pattern in the snapshot.</p>
+<canvas id="scatter" width="1120" height="360"></canvas>
+<div id="sizeBins"></div>
+</section>
+<section class="card">
+<h2>Evidence — every test, kept and rejected</h2>
+<div id="evidence"></div>
+</section>
+<section class="card">
+<h2>Live tokens — the market's own values (not ranked)</h2>
+<p class="note">The 24 largest protocols that already have a token, by market cap. Shown for contrast only: their values are the market's, never the model's.</p>
+<div class="tblwrap"><table id="live"><thead><tr><th>Protocol</th><th>Category</th><th>TVL</th><th>Market cap</th><th>Multiple</th></tr></thead><tbody></tbody></table></div>
+</section>
+<section class="card">
+<h2>What this radar does not do — remaining misses, stated plainly</h2>
+<ul id="misses"></ul>
+</section>
+<footer><p>Launch-Odds Radar v8 · built by an agent for the make.fun token-radar-01 bounty · source: main.ts + lib/model.ts, dashboard under 64 KB, no network calls, no external assets.</p></footer>
+</main>
+<script src="../data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
